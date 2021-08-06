@@ -1,10 +1,12 @@
-#define ledPin 9  //กำหนด pin pwm สำหรับควบคุม led
+#define ledPin 5  //กำหนด pin pwm สำหรับควบคุม led
+#define ledPin2 6  //กำหนด pin pwm สำหรับควบคุม led
 
 void setup() {
   // initialize the serial communication:
   Serial.begin(115200);
   // initialize the ledPin as an output:
   pinMode(ledPin, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
 
   Serial.println("Input brightness value between 0-100%...");
 }
@@ -19,13 +21,14 @@ void loop() {
 
     Serial.println("Set brightness level to " + brightness);
 
-    // pwmVal = map(brightness.toInt(), 0, 100, 0, 255);
+//    pwmVal = map(brightness.toInt(), 0, 100, 0, 255);
 
-    pwmVal = (brightness.toInt() * 255) / 100;
+    pwmVal = (255 - (brightness.toInt() * 255) / 100);
 
-    //Serial.println(pwmVal);
+    Serial.println(pwmVal);
 
     // set the brightness of the LED:
     analogWrite(ledPin, pwmVal);
+    analogWrite(ledPin2, pwmVal);
   }
 }
